@@ -17,7 +17,7 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
   const { submit: deleteBlog, loading: isDeleting, error: deleteError } = useDeleteBlog();
   const router = useRouter();
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = React.useCallback(async (id: string) => {
     const confirmed = window.confirm(
       'Are you sure you want to delete this post?'
     );
@@ -30,7 +30,7 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
     } catch (error) {
         console.error('Error deleting post:', error);
     }
-  };
+  }, [deleteBlog]);
 
   const handleRowClick = (id: string) => {
     router.push(`/manage/blogs/${id}/edit`);
@@ -76,7 +76,7 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
         },
       },
     ],
-    []
+    [handleDelete]
   );
 
   const table = useReactTable({
