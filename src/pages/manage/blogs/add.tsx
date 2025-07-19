@@ -1,4 +1,4 @@
-import AddBlogForm from '@/components/BlogForm';
+import AddBlogForm from '@/components/AddBlogForm';
 import Link from 'next/link';
 import React from 'react';
 

@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import BlogForm from '@/components/BlogForm';
 import { useBlog } from '@/hooks/useBlog';
 import { AsyncBoundary } from '@/components/AsyncBoundary';
+import { MODE } from '@/constants/mode';
 
 export default function Page() {
     const router = useRouter();
@@ -17,7 +18,7 @@ export default function Page() {
                 errorFallback={<p>Error loading blog: {error?.message || 'Blog not found'}</p>}
             >
                 {blog ? (
-                    <BlogForm mode="edit" initialData={blog} />
+                    <BlogForm mode={MODE.EDIT} initialData={blog} />
                 ) : (
                     <p>Blog not found</p>
                 )}

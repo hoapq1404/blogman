@@ -4,9 +4,10 @@ import { NewBlog, Blog } from '@/types/blog';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/router'
 import { AsyncBoundary } from './AsyncBoundary';
+import { MODE, Mode } from '@/constants/mode';
 
 interface BlogFormProps {
-  mode: 'add' | 'edit';
+  mode: Mode,
   initialData?: Blog;
 }
 
@@ -15,7 +16,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
     const { submit: createBlogSubmit, loading: createLoading, error: createError } = useCreateBlog();
     const { submit: updateBlogSubmit, loading: updateLoading, error: updateError } = useUpdateBlog();
     
-    const isEditMode = mode === 'edit';
+    const isEditMode = mode === MODE.EDIT
     const loading = isEditMode ? updateLoading : createLoading;
     const error = isEditMode ? updateError : createError;
 
