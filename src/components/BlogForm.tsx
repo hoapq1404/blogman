@@ -9,6 +9,7 @@ import ImageUpload from '@/components/ImageUpload';
 import { MODE, Mode } from '@/constants/common';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import BlogContentEditor from './BlogContentEditor';
 
 interface BlogFormProps {
   mode: Mode;
@@ -108,13 +109,14 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
               <field.FormItem>
                 <field.FormLabel htmlFor="content">Content:</field.FormLabel>
                 <field.FormControl>
-                  <textarea
+                  {/* <textarea
                     id="content"
                     value={(field.state.value as string) || ''}
                     onChange={(e) => field.handleChange(e.target.value)}
                     placeholder="Enter blog content"
                     rows={5}
-                  />
+                  /> */}
+                  <BlogContentEditor />
                 </field.FormControl>
                 {field.state.meta.errors && (
                   <field.FormItem>
