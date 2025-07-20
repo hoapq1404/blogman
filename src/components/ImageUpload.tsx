@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import validateFile from '@/utils/validateFile';
 import convertFileToBase64 from '@/utils/convertFileToBase64';
-import { UPLOAD_CONSTANTS } from '@/constants/common';
+import { ERROR_MESSAGES, UPLOAD_CONSTANTS } from '@/constants/common';
 
 /**
  * Props for the ImageUpload component.
@@ -61,8 +61,8 @@ export default function ImageUpload({
           onChange(base64);
         })
         .catch((err) => {
-          console.error('Error converting file to base64:', err);
-          alert('Failed to upload image. Please try again.');
+          console.error(ERROR_MESSAGES.FILE_TOO_LARGE, err);
+          alert(ERROR_MESSAGES.FILE_TOO_LARGE);
         });
     },
     [onChange]
@@ -108,8 +108,8 @@ export default function ImageUpload({
           <Image
             src={value}
             alt="Preview"
-            width={300}
-            height={200}
+            width={UPLOAD_CONSTANTS.PREVIEW_DIMENSIONS.width}
+            height={UPLOAD_CONSTANTS.PREVIEW_DIMENSIONS.height}
             unoptimized={value.startsWith('data:')}
           />
           <div>
