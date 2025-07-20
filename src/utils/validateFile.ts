@@ -10,7 +10,7 @@ export default function validateFile(file: File): string | null {
         return ERROR_MESSAGES.INVALID_FILE_TYPE;
     }
     
-    if (file.size > UPLOAD_CONSTANTS.MAX_FILE_SIZE) {
+    if (file.size > UPLOAD_CONSTANTS.MAX_FILE_SIZE_BYTES) {
         return ERROR_MESSAGES.FILE_TOO_LARGE;
     }
     

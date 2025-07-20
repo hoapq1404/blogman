@@ -1,4 +1,4 @@
-import BlogForm from './BlogForm';
+import BlogForm from '@/components/BlogForm';
 import { Blog } from '@/types/blog';
 import { MODE } from '@/constants/common';
 

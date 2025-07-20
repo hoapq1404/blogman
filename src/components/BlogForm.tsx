@@ -3,8 +3,8 @@ import { useUpdateBlog } from '@/hooks/useUpdateBlog';
 import { NewBlog, Blog } from '@/types/blog';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/router'
-import { AsyncBoundary } from './AsyncBoundary';
-import { ImageUpload } from './ImageUpload';
+import { AsyncBoundary } from '@/components/AsyncBoundary';
+import  ImageUpload from '@/components/ImageUpload';
 import { MODE, Mode } from '@/constants/common';
 
 interface BlogFormProps {
@@ -116,7 +116,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                 <div>
                                     <ImageUpload
                                         value={(field.state.value as string) || ''}
-                                        onChange={(imageUrl) => field.handleChange(imageUrl || '')}
+                                        onChange={(imageUrl: string | null) => field.handleChange(imageUrl || '')}
                                         disabled={loading}
                                         placeholder='Choose a blog image...'
                                     />
