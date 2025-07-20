@@ -4,6 +4,7 @@ export type Blog = {
   name?: string;
   title?: string;
   content?: string;
+  author?: string; // Optional, can be used to store the author's name or ID
   image?: string; // URL or base64 string for the image
   createdAt?: Date;
   [key: string]: unknown; // Allows for additional properties if needed

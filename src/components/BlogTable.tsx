@@ -57,6 +57,14 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
         },
       },
       {
+        accessorKey: 'author',
+        header: 'Author',
+        cell: (info) => {
+          const value = info.getValue() as string | undefined;
+          return value || 'Unknown';
+        },
+      },
+      {
         header: '',
         id: 'actions',
         cell: (info) => {

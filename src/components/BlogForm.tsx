@@ -129,7 +129,27 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                             </div>
                         )}
                     </blogForm.Field>
-                    
+
+                    <blogForm.Field name='author'>
+                        {(field) => (
+                            <div>
+                                <label htmlFor='author'>Author:</label>
+                                <input
+                                    id='author'
+                                    type='text'
+                                    value={(field.state.value as string) || ''}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    placeholder='Enter author name or ID'
+                                />
+                                {field.state.meta.errors && (
+                                    <div>
+                                        {field.state.meta.errors.join(', ')}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </blogForm.Field>
+
                     <div>
                         <button 
                             type='submit' 
