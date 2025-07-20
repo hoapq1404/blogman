@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
 
 export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
   const [globalFilter] = React.useState('');
@@ -124,7 +125,7 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
       }
     >
       <React.Fragment>
-        <input
+        <Input
           type="text"
           placeholder="Search name..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}

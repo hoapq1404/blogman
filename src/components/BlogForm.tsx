@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { AsyncBoundary } from '@/components/AsyncBoundary';
 import  ImageUpload from '@/components/ImageUpload';
 import { MODE, Mode } from '@/constants/common';
+import { Input } from '@/components/ui/input';
 
 interface BlogFormProps {
   mode: Mode,
@@ -52,7 +53,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                         {(field) => (
                             <div>
                                 <label htmlFor='name'>Blog Name:</label>
-                                <input
+                                <Input
                                     id='name'
                                     type='text'
                                     value={field.state.value as string}
@@ -73,7 +74,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                         {(field) => (
                             <div>
                                 <label htmlFor='title'>Blog Title:</label>
-                                <input
+                                <Input
                                     id='title'
                                     type='text'
                                     value={(field.state.value as string) || ''}
@@ -134,7 +135,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                         {(field) => (
                             <div>
                                 <label htmlFor='author'>Author:</label>
-                                <input
+                                <Input
                                     id='author'
                                     type='text'
                                     value={(field.state.value as string) || ''}

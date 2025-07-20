@@ -3,6 +3,7 @@ import Image from 'next/image';
 import validateFile from '@/utils/validateFile';
 import convertFileToBase64 from '@/utils/convertFileToBase64';
 import { ERROR_MESSAGES, UPLOAD_CONSTANTS } from '@/constants/common';
+import { Input } from '@/components/ui/input';
 
 /**
  * ImageUpload component for uploading and previewing images.
@@ -114,7 +115,7 @@ export default function ImageUpload({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          <input
+          <Input
             id="image-upload-input"
             type="file"
             accept="image/*"
