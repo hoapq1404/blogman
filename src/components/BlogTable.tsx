@@ -129,7 +129,7 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
                 <tr 
                 key={row.id}
                 onClick={() => handleRowClick(row.original.id)}
-                style={{ cursor: 'pointer' }}
+               
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#f5f5f5';
                   e.currentTarget.style.color = '#0066cc';

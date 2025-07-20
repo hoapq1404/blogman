@@ -4,6 +4,7 @@ import { NewBlog, Blog } from '@/types/blog';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/router'
 import { AsyncBoundary } from './AsyncBoundary';
+import { ImageUpload } from './ImageUpload';
 import { MODE, Mode } from '@/constants/mode';
 
 interface BlogFormProps {
@@ -25,6 +26,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
             name: initialData?.name || '',
             title: initialData?.title || '',
             content: initialData?.content || '',
+            image: initialData?.image || '',
         } as NewBlog,
         onSubmit: async ({ value }) => {
             try {
@@ -40,6 +42,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
             }
         }
     });
+    
     return (
         <div>
             <h1>{isEditMode ? 'Edit Blog' : 'Add Blog'}</h1>
@@ -56,9 +59,16 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     placeholder='Enter blog name'
                                     required
+                                    style={{ 
+                                        width: '100%', 
+                                        padding: '8px', 
+                                        marginTop: '4px',
+                                        border: '1px solid #ddd',
+                                        borderRadius: '4px'
+                                    }}
                                 />
                                 {field.state.meta.errors && (
-                                    <div style={{ color: 'red' }}>
+                                    <div>
                                         {field.state.meta.errors.join(', ')}
                                     </div>
                                 )}
@@ -76,9 +86,16 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                     value={(field.state.value as string) || ''}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     placeholder='Enter blog title'
+                                    style={{ 
+                                        width: '100%', 
+                                        padding: '8px', 
+                                        marginTop: '4px',
+                                        border: '1px solid #ddd',
+                                        borderRadius: '4px'
+                                    }}
                                 />
                                 {field.state.meta.errors && (
-                                    <div style={{ color: 'red' }}>
+                                    <div>
                                         {field.state.meta.errors.join(', ')}
                                     </div>
                                 )}
@@ -96,9 +113,38 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     placeholder='Enter blog content'
                                     rows={5}
+                                    style={{ 
+                                        width: '100%', 
+                                        padding: '8px', 
+                                        marginTop: '4px',
+                                        border: '1px solid #ddd',
+                                        borderRadius: '4px',
+                                        resize: 'vertical'
+                                    }}
                                 />
                                 {field.state.meta.errors && (
-                                    <div style={{ color: 'red' }}>
+                                    <div>
+                                        {field.state.meta.errors.join(', ')}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </blogForm.Field>
+                    
+                    <blogForm.Field name='image'>
+                        {(field) => (
+                            <div>
+                                <label htmlFor='image'>Blog Image:</label>
+                                <div>
+                                    <ImageUpload
+                                        value={(field.state.value as string) || ''}
+                                        onChange={(imageUrl) => field.handleChange(imageUrl || '')}
+                                        disabled={loading}
+                                        placeholder='Choose a blog image...'
+                                    />
+                                </div>
+                                {field.state.meta.errors && (
+                                    <div>
                                         {field.state.meta.errors.join(', ')}
                                     </div>
                                 )}
@@ -107,13 +153,34 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                     </blogForm.Field>
                     
                     <div>
-                        <button type='submit' disabled={loading}>
+                        <button 
+                            type='submit' 
+                            disabled={loading}
+                            style={{
+                                padding: '10px 20px',
+                                backgroundColor: '#007bff',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: loading ? 'not-allowed' : 'pointer',
+                                opacity: loading ? 0.6 : 1
+                            }}
+                        >
                             {loading ? (isEditMode ? 'Updating...' : 'Creating...') : (isEditMode ? 'Update Blog' : 'Create Blog')}
                         </button>
                         <button 
                             type='button' 
                             onClick={() => router.push('/manage/blogs')}
                             disabled={loading}
+                            style={{
+                                padding: '10px 20px',
+                                backgroundColor: '#6c757d',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: loading ? 'not-allowed' : 'pointer',
+                                opacity: loading ? 0.6 : 1
+                            }}
                         >
                             Cancel
                         </button>
