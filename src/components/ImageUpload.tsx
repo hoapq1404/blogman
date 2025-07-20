@@ -5,21 +5,6 @@ import convertFileToBase64 from '@/utils/convertFileToBase64';
 import { ERROR_MESSAGES, UPLOAD_CONSTANTS } from '@/constants/common';
 
 /**
- * Props for the ImageUpload component.
- *
- * @property value - The current image value, which can be a base64 string or a URL. Optional.
- * @property onChange - Callback function invoked when the image is changed or removed. Receives the new image URL or null.
- * @property disabled - Optional. If true, disables the upload and remove actions. Defaults to false.
- * @property placeholder - Optional. Placeholder text shown when no image is selected. Defaults to 'Choose an image...'.
- */
-export interface ImageUploadProps {
-  value?: string | null;
-  onChange: (imageUrl: string | null) => void;
-  disabled?: boolean;
-  placeholder?: string;
-}
-
-/**
  * ImageUpload component for uploading and previewing images.
  *
  * Allows users to select an image file via file input or drag-and-drop.
@@ -38,7 +23,12 @@ export default function ImageUpload({
   onChange,
   disabled = false,
   placeholder = 'Choose an image...',
-}: ImageUploadProps) {
+}: {
+  value?: string | null;
+  onChange: (imageUrl: string | null) => void;
+  disabled?: boolean;
+  placeholder?: string;
+}) {
   const [, setIsDragOver] = useState(false);
 
   const handleFileChange = useCallback(
