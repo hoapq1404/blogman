@@ -7,30 +7,45 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import React from 'react';
-import { AsyncBoundary } from './AsyncBoundary';
+import { AsyncBoundary } from '@/components/AsyncBoundary';
 import { useDeleteBlog } from '@/hooks/useDeleteBlog';
 import { useRouter } from 'next/router';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
   const [globalFilter] = React.useState('');
   const [posts, setPosts] = React.useState<Blog[]>(Blogs);
-  const { submit: deleteBlog, loading: isDeleting, error: deleteError } = useDeleteBlog();
+  const {
+    submit: deleteBlog,
+    loading: isDeleting,
+    error: deleteError,
+  } = useDeleteBlog();
   const router = useRouter();
 
-  const handleDelete = React.useCallback(async (id: string) => {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this post?'
-    );
-    if (!confirmed) return;
-    
-    try {
+  const handleDelete = React.useCallback(
+    async (id: string) => {
+      const confirmed = window.confirm(
+        'Are you sure you want to delete this post?'
+      );
+      if (!confirmed) return;
+
+      try {
         await deleteBlog(id);
         // Remove the deleted post from local state after successful deletion
         setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-    } catch (error) {
+      } catch (error) {
         console.error('Error deleting post:', error);
-    }
-  }, [deleteBlog]);
+      }
+    },
+    [deleteBlog]
+  );
 
   const handleRowClick = (id: string) => {
     router.push(`/manage/blogs/${id}/edit`);
@@ -71,7 +86,7 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
           const row = info.row.original;
           return (
             <div>
-              <button 
+              <button
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent row click when clicking delete
                   handleDelete(row.id);
@@ -104,40 +119,41 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
       isLoading={isDeleting}
       error={deleteError}
       loadingFallback={<p>Deleting post...</p>}
-      errorFallback={<p>Error: {deleteError?.message || 'Something went wrong'}</p>}
+      errorFallback={
+        <p>Error: {deleteError?.message || 'Something went wrong'}</p>
+      }
     >
       <React.Fragment>
         <input
-          type='text'
-          placeholder='Search name...'
+          type="text"
+          placeholder="Search name..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
           onChange={(e) =>
             table.getColumn('name')?.setFilterValue(e.target.value)
           }
         />
 
-        <table>
-          <thead>
+        <Table>
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
+                  <TableHead key={header.id}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
                     )}
-                  </th>
+                  </TableHead>
                 ))}
-              </tr>
+              </TableRow>
             ))}
-          </thead>
+          </TableHeader>
 
-          <tbody>
+          <TableBody>
             {table.getRowModel().rows.map((row) => (
-                <tr 
+              <TableRow
                 key={row.id}
                 onClick={() => handleRowClick(row.original.id)}
-               
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#f5f5f5';
                   e.currentTarget.style.color = '#0066cc';
@@ -146,21 +162,21 @@ export default function BlogTable({ Blogs }: { Blogs: Blog[] }) {
                   e.currentTarget.style.backgroundColor = 'transparent';
                   e.currentTarget.style.color = 'inherit';
                 }}
-                >
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
-                </tr>
+              </TableRow>
             ))}
             {table.getRowModel().rows.length === 0 && (
-              <tr>
-                <td colSpan={columns.length}>No posts found.</td>
-              </tr>
+              <TableRow>
+                <TableCell colSpan={columns.length}>No posts found.</TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </React.Fragment>
     </AsyncBoundary>
   );
