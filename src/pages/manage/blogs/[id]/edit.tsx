@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import BlogForm from '@/components/BlogForm';
 import { useBlog } from '@/hooks/useBlog';
 import { AsyncBoundary } from '@/components/AsyncBoundary';
-import { MODE } from '@/constants/mode';
+import { MODE } from '@/constants/common';
 
 export default function Page() {
     const router = useRouter();

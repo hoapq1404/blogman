@@ -1,6 +1,6 @@
 import BlogForm from './BlogForm';
 import { Blog } from '@/types/blog';
-import { MODE } from '@/constants/mode';
+import { MODE } from '@/constants/common';
 
 interface EditBlogFormProps {
   blog: Blog;

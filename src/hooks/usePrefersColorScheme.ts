@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { COLOR_SCHEMES, ColorScheme } from '@/constants/color-scheme';
+import { COLOR_SCHEMES, ColorScheme } from '@/constants/common';
 
 export function usePrefersColorScheme(): ColorScheme {
   const [scheme, setScheme] = useState<ColorScheme>(COLOR_SCHEMES.LIGHT);

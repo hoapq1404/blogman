@@ -5,7 +5,7 @@ import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/router'
 import { AsyncBoundary } from './AsyncBoundary';
 import { ImageUpload } from './ImageUpload';
-import { MODE, Mode } from '@/constants/mode';
+import { MODE, Mode } from '@/constants/common';
 
 interface BlogFormProps {
   mode: Mode,
@@ -59,13 +59,6 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     placeholder='Enter blog name'
                                     required
-                                    style={{ 
-                                        width: '100%', 
-                                        padding: '8px', 
-                                        marginTop: '4px',
-                                        border: '1px solid #ddd',
-                                        borderRadius: '4px'
-                                    }}
                                 />
                                 {field.state.meta.errors && (
                                     <div>
@@ -86,13 +79,6 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                     value={(field.state.value as string) || ''}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     placeholder='Enter blog title'
-                                    style={{ 
-                                        width: '100%', 
-                                        padding: '8px', 
-                                        marginTop: '4px',
-                                        border: '1px solid #ddd',
-                                        borderRadius: '4px'
-                                    }}
                                 />
                                 {field.state.meta.errors && (
                                     <div>
@@ -113,14 +99,6 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     placeholder='Enter blog content'
                                     rows={5}
-                                    style={{ 
-                                        width: '100%', 
-                                        padding: '8px', 
-                                        marginTop: '4px',
-                                        border: '1px solid #ddd',
-                                        borderRadius: '4px',
-                                        resize: 'vertical'
-                                    }}
                                 />
                                 {field.state.meta.errors && (
                                     <div>
@@ -156,15 +134,6 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                         <button 
                             type='submit' 
                             disabled={loading}
-                            style={{
-                                padding: '10px 20px',
-                                backgroundColor: '#007bff',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '4px',
-                                cursor: loading ? 'not-allowed' : 'pointer',
-                                opacity: loading ? 0.6 : 1
-                            }}
                         >
                             {loading ? (isEditMode ? 'Updating...' : 'Creating...') : (isEditMode ? 'Update Blog' : 'Create Blog')}
                         </button>
@@ -172,15 +141,6 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                             type='button' 
                             onClick={() => router.push('/manage/blogs')}
                             disabled={loading}
-                            style={{
-                                padding: '10px 20px',
-                                backgroundColor: '#6c757d',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '4px',
-                                cursor: loading ? 'not-allowed' : 'pointer',
-                                opacity: loading ? 0.6 : 1
-                            }}
                         >
                             Cancel
                         </button>
